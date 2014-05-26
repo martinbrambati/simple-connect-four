@@ -4,6 +4,7 @@ set :server, 'thin'
 connections = []
 
 get '/users/:id' do
+  p session[:matrix]
   halt erb(:login) unless params[:id]
   erb :chat, :locals => { :user => params[:id].gsub(/\W/, '') }
 end
@@ -19,9 +20,9 @@ post '/' do
   session[:matrix] = Hash.new if !session[:matrix]
   user, move = params[:msg].gsub(/\s+/, "").split(/:/)
 
-  session[:has_move] = user if !session[:has_move]
+  session[:has_move] = -1 if !session[:has_move]
   #App rules
-  if (!session[:matrix].has_key? move && session[:has_move]!=user) #One at a time
+  if (!session[:matrix].has_key?(move) && session[:has_move]!=user) #One at a time
     #Save play
     session[:matrix][move]=user 
     session[:has_move]=user
