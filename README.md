@@ -10,3 +10,9 @@ What would you need?
 
 How it works?
 It is like a chat, one file app, based on HTML5 EventSource
+
+
+#Test it!
+http://localhost:PORT/users/1
+
+http://localhost:PORT/users/2
